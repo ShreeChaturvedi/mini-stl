@@ -42,6 +42,7 @@ add_executable(stl_tests
   tests/test_list.cpp
   tests/test_queue.cpp
   tests/test_span.cpp
+  tests/test_map_set.cpp
 )
 target_link_libraries(stl_tests PRIVATE stl)
 add_test(NAME stl_tests COMMAND stl_tests)

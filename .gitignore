@@ -42,6 +42,12 @@
 !queue/**
 !span/
 !span/**
+!rb-tree/
+!rb-tree/**
+!map/
+!map/**
+!set/
+!set/**
 
 # Build artifacts
 build*/
