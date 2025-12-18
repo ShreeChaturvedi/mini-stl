@@ -41,3 +41,11 @@ TEST_CASE("ArrayList: copy/move") {
   CHECK_EQ(moved.size(), 2u);
   CHECK_EQ(moved[1], "b");
 }
+
+TEST_CASE("ArrayList: insert at end near capacity") {
+  ArrayList<int> xs(16);
+  for (int i = 0; i < 15; ++i) xs.add(i);
+  xs.insert(xs.size(), 999);
+  CHECK_EQ(xs.size(), 16u);
+  CHECK_EQ(xs[15], 999);
+}

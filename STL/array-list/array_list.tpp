@@ -99,10 +99,10 @@ void ArrayList<T>::insert(std::size_t index, T element) {
     if (index > size_)
         throw std::out_of_range("Index out of range");
     ensure_capacity();
-    ++size_;
     for (std::size_t pos = size_; pos > index; --pos)
         data_[pos] = data_[pos - 1];
     data_[index] = element;
+    ++size_;
 }
 
 template <typename T>
@@ -131,7 +131,7 @@ void ArrayList<T>::reserve(std::size_t capacity) {
 template <typename T>
 void ArrayList<T>::ensure_capacity() {
     if (size_ < capacity_) return;
-    capacity_ += capacity_ >> 1;
+    capacity_ = capacity_ == 0 ? 1 : (capacity_ + (capacity_ >> 1));
     T* new_array = copy_array();
     std::swap(new_array, data_);
     delete[] new_array;
