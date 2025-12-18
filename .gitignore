@@ -62,6 +62,8 @@
 !string/**
 !flat-map/
 !flat-map/**
+!flat-set/
+!flat-set/**
 
 # Build artifacts
 build*/
