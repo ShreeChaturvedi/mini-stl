@@ -24,6 +24,7 @@ endif()
 
 add_executable(stl_tests
   tests/test_main.cpp
+  tests/test_array_list.cpp
 )
 target_link_libraries(stl_tests PRIVATE stl)
 
