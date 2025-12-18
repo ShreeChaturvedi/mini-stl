@@ -70,6 +70,9 @@ public:
   void insert(pair_type pair) { insert_or_assign(std::move(pair)); }
   void emplace(K key, V value) { insert_or_assign({std::move(key), std::move(value)}); }
 
+  iterator find(const K& key);
+  const_iterator find(const K& key) const;
+
   void erase(const K& key);
 
   V& at(const K& key);
@@ -101,6 +104,27 @@ private:
   V& try_emplace_default(const K& key);
   void insert_or_assign(pair_type pair);
 };
+
+template <typename K, typename V, typename Hash, typename KeyEqual>
+typename unordered_map<K, V, Hash, KeyEqual>::iterator unordered_map<K, V, Hash, KeyEqual>::find(const K& key) {
+  const size_type bucket = bucket_of(key);
+  auto& list = buckets_[bucket];
+  for (auto it = list.begin(); it != list.end(); ++it) {
+    if (KeyEqual{}(it->first, key)) return iterator(this, bucket, it);
+  }
+  return end();
+}
+
+template <typename K, typename V, typename Hash, typename KeyEqual>
+typename unordered_map<K, V, Hash, KeyEqual>::const_iterator unordered_map<K, V, Hash, KeyEqual>::find(
+    const K& key) const {
+  const size_type bucket = bucket_of(key);
+  const auto& list = buckets_[bucket];
+  for (auto it = list.begin(); it != list.end(); ++it) {
+    if (KeyEqual{}(it->first, key)) return const_iterator(this, bucket, it);
+  }
+  return cend();
+}
 
 template <typename K, typename V, typename Hash, typename KeyEqual>
 void unordered_map<K, V, Hash, KeyEqual>::erase(const K& key) {
@@ -223,9 +247,11 @@ private:
   size_type bucket_;
   T_list_iterator it_;
 
+public:
   base_iterator(map_ptr map, size_type bucket, T_list_iterator it)
       : map_(map), bucket_(bucket), it_(std::move(it)) {}
 
+private:
   auto& bucket_list() const { return map_->buckets_[bucket_]; }
 
   void skip_empty_buckets() {
