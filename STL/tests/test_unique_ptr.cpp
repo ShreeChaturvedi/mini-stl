@@ -1,6 +1,6 @@
 #include "test.hpp"
 
-#include "../unique-ptr/unique_ptr.h"
+#include "../unique-ptr/unique_ptr.hpp"
 
 struct DropCounter {
   static inline int drops = 0;
@@ -13,4 +13,3 @@ TEST_CASE("unique_ptr: destroys owned object") {
   { unique_ptr<DropCounter> p(new DropCounter{}); }
   CHECK_EQ(DropCounter::drops, 1);
 }
-

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../unique-ptr/unique_ptr.h"
+#include "../unique-ptr/unique_ptr.hpp"
 
 #include <array>
 #include <cstddef>
@@ -64,4 +64,3 @@ private:
     return !node->terminal && !has_children(node);
   }
 };
-
