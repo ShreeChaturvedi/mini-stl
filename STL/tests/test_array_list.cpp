@@ -1,11 +1,12 @@
 #include "test.hpp"
 
-#include "../array-list/ArrayList.h"
+#include "../array-list/array_list.hpp"
 
 #include <string>
 
 TEST_CASE("ArrayList: add/size/index") {
   ArrayList<int> xs;
+  CHECK(xs.empty());
   CHECK(xs.size() == 0);
   for (int i = 0; i < 100; ++i) xs.add(i);
   CHECK(xs.size() == 100);
@@ -40,4 +41,3 @@ TEST_CASE("ArrayList: copy/move") {
   CHECK_EQ(moved.size(), 2u);
   CHECK_EQ(moved[1], "b");
 }
-

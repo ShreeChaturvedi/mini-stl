@@ -119,18 +119,21 @@ public:
      */
     friend std::ostream& operator<<(std::ostream& os, const ArrayList& list) {
         os << '[';
-        if (list.m_size > 0) os << list.m_array[0];
-        for (std::size_t pos = 1; pos < list.m_size; ++pos) 
-            os << ", " << list.m_array[pos];
+        if (list.size_ > 0) os << list.data_[0];
+        for (std::size_t pos = 1; pos < list.size_; ++pos) 
+            os << ", " << list.data_[pos];
         return os << ']';
     }
-private:
-    std::size_t m_size;
-    std::size_t m_capacity;
-    T* m_array;
 
-    void ensureCapacity();
-    T* copyArray();
+    bool empty() const noexcept;
+    std::size_t capacity() const noexcept;
+private:
+    std::size_t size_;
+    std::size_t capacity_;
+    T* data_;
+
+    void ensure_capacity();
+    T* copy_array();
 };
 
-#include "ArrayList.tpp"
+#include "array_list.tpp"

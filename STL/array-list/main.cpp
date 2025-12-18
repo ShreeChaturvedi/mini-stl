@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "ArrayList.h"
+#include "array_list.hpp"
 
 int main() {
     auto int_list = ArrayList<int>();
