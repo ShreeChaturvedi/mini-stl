@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <initializer_list>
+#include <iterator>
 #include <iosfwd>
 #include <ostream>
 
@@ -10,6 +11,8 @@ class Vector {
 public:
     using iterator = T*;
     using const_iterator = const T*;
+    using reverse_iterator = std::reverse_iterator<iterator>;
+    using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
     // Constructors
     Vector() noexcept;
@@ -48,11 +51,26 @@ public:
     const_iterator end() const noexcept;
     const_iterator cend() const noexcept;
 
+    reverse_iterator rbegin() noexcept;
+    const_reverse_iterator rbegin() const noexcept;
+    const_reverse_iterator crbegin() const noexcept;
+
+    reverse_iterator rend() noexcept;
+    const_reverse_iterator rend() const noexcept;
+    const_reverse_iterator crend() const noexcept;
+
     void clear() noexcept;
     void reserve(std::size_t capacity);
+    void resize(std::size_t size);
     std::size_t capacity() const noexcept;
     T* data() noexcept;
     const T* data() const noexcept;
+
+    T& front();
+    const T& front() const;
+    T& back();
+    const T& back() const;
+    void pop_back();
 
     std::size_t size() const noexcept;
     bool empty() const noexcept;

@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <initializer_list>
+#include <iterator>
 #include <memory>
 #include <stdexcept>
 #include <type_traits>
@@ -141,6 +142,36 @@ typename Vector<T>::const_iterator Vector<T>::cend() const noexcept {
 }
 
 template <typename T>
+typename Vector<T>::reverse_iterator Vector<T>::rbegin() noexcept {
+  return reverse_iterator(end());
+}
+
+template <typename T>
+typename Vector<T>::const_reverse_iterator Vector<T>::rbegin() const noexcept {
+  return const_reverse_iterator(end());
+}
+
+template <typename T>
+typename Vector<T>::const_reverse_iterator Vector<T>::crbegin() const noexcept {
+  return const_reverse_iterator(end());
+}
+
+template <typename T>
+typename Vector<T>::reverse_iterator Vector<T>::rend() noexcept {
+  return reverse_iterator(begin());
+}
+
+template <typename T>
+typename Vector<T>::const_reverse_iterator Vector<T>::rend() const noexcept {
+  return const_reverse_iterator(begin());
+}
+
+template <typename T>
+typename Vector<T>::const_reverse_iterator Vector<T>::crend() const noexcept {
+  return const_reverse_iterator(begin());
+}
+
+template <typename T>
 void Vector<T>::clear() noexcept {
   std::destroy_n(data_, size_);
   size_ = 0;
@@ -160,6 +191,55 @@ void Vector<T>::reserve(std::size_t new_capacity) {
   deallocate();
   data_ = new_data;
   capacity_ = new_capacity;
+}
+
+template <typename T>
+void Vector<T>::resize(std::size_t new_size) {
+  if (new_size < size_) {
+    std::destroy_n(data_ + new_size, size_ - new_size);
+    size_ = new_size;
+    return;
+  }
+
+  if (new_size == size_) return;
+
+  static_assert(std::is_default_constructible_v<T>, "Vector::resize requires default constructible T");
+  reserve(new_size);
+  while (size_ < new_size) {
+    std::construct_at(data_ + size_);
+    ++size_;
+  }
+}
+
+template <typename T>
+T& Vector<T>::front() {
+  if (empty()) throw std::out_of_range("Vector::front on empty");
+  return data_[0];
+}
+
+template <typename T>
+const T& Vector<T>::front() const {
+  if (empty()) throw std::out_of_range("Vector::front on empty");
+  return data_[0];
+}
+
+template <typename T>
+T& Vector<T>::back() {
+  if (empty()) throw std::out_of_range("Vector::back on empty");
+  return data_[size_ - 1];
+}
+
+template <typename T>
+const T& Vector<T>::back() const {
+  if (empty()) throw std::out_of_range("Vector::back on empty");
+  return data_[size_ - 1];
+}
+
+template <typename T>
+void Vector<T>::pop_back() {
+  if (empty()) throw std::out_of_range("Vector::pop_back on empty");
+  std::destroy_at(data_ + (size_ - 1));
+  --size_;
 }
 
 template <typename T>

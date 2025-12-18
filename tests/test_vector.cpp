@@ -13,6 +13,25 @@ TEST_CASE("Vector: push_back/size/index") {
   CHECK_EQ(xs[99], 99);
 }
 
+TEST_CASE("Vector: front/back/pop_back/resize") {
+  Vector<int> xs;
+  CHECK_THROWS(xs.front());
+  CHECK_THROWS(xs.back());
+  CHECK_THROWS(xs.pop_back());
+
+  xs.push_back(1);
+  xs.push_back(2);
+  CHECK_EQ(xs.front(), 1);
+  CHECK_EQ(xs.back(), 2);
+  xs.pop_back();
+  CHECK_EQ(xs.size(), 1u);
+  CHECK_EQ(xs.back(), 1);
+
+  xs.resize(5);
+  CHECK_EQ(xs.size(), 5u);
+  CHECK_EQ(xs.front(), 1);
+}
+
 TEST_CASE("Vector: copy/move") {
   Vector<std::string> xs{"a", "b", "c"};
   Vector<std::string> ys = xs;
