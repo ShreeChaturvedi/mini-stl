@@ -17,3 +17,7 @@ STL/build/
 
 # OS cruft
 .DS_Store
+
+# Editor config
+.vscode/
+**/.vscode/
