@@ -30,12 +30,14 @@ add_executable(stl_tests
   tests/test_heap.cpp
   tests/test_unique_ptr.cpp
   tests/test_vector.cpp
+  tests/test_unordered_map.cpp
 )
 target_link_libraries(stl_tests PRIVATE stl)
 
 add_executable(stl_bench
   bench/bench_main.cpp
   bench/bench_vector.cpp
+  bench/bench_unordered_map.cpp
 )
 target_link_libraries(stl_bench PRIVATE stl)
 target_compile_options(stl_bench PRIVATE -O3)
