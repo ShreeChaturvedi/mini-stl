@@ -1,4 +1,4 @@
-#include "buffer.h"
+#include "ring_buffer.hpp"
 
 int main() {
     RingBuffer<int, 8> buffer;

@@ -23,18 +23,18 @@ public:
         }
         
         os << '[';
-        for (std::size_t i = buffer.m_head; i != buffer.m_tail; 
+        for (std::size_t i = buffer.head_; i != buffer.tail_; 
             i = (i + 1) % capacity) {
-            os << buffer.m_buffer[i] << ", ";
+            os << buffer.buffer_[i] << ", ";
         }
-        os << buffer.m_buffer[buffer.m_tail];
+        os << buffer.buffer_[buffer.tail_];
         os << ']';
         return os;
     }
 private:
-    std::size_t m_size;
-    std::size_t m_head, m_tail;
-    std::array<T, capacity> m_buffer;
+    std::size_t size_;
+    std::size_t head_, tail_;
+    std::array<T, capacity> buffer_;
 };
 
-#include "buffer.tpp"
+#include "ring_buffer.tpp"

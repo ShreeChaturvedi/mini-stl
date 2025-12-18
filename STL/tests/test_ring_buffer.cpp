@@ -1,6 +1,6 @@
 #include "test.hpp"
 
-#include "../ring-buffer/buffer.h"
+#include "../ring-buffer/ring_buffer.hpp"
 
 TEST_CASE("RingBuffer: push/pop/peek") {
   RingBuffer<int, 4> b;
@@ -22,4 +22,3 @@ TEST_CASE("RingBuffer: full") {
   CHECK(b.full());
   CHECK_THROWS(b.push(40));
 }
-
