@@ -47,6 +47,7 @@ add_executable(stl_tests
   tests/test_unordered_multi.cpp
   tests/test_deque.cpp
   tests/test_string.cpp
+  tests/test_flat_map.cpp
 )
 target_link_libraries(stl_tests PRIVATE stl)
 add_test(NAME stl_tests COMMAND stl_tests)
@@ -55,6 +56,7 @@ add_executable(stl_bench
   bench/bench_main.cpp
   bench/bench_vector.cpp
   bench/bench_unordered_map.cpp
+  bench/bench_flat_map.cpp
 )
 target_link_libraries(stl_bench PRIVATE stl)
 target_compile_options(stl_bench PRIVATE -O3)

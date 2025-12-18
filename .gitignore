@@ -60,6 +60,8 @@
 !deque/**
 !string/
 !string/**
+!flat-map/
+!flat-map/**
 
 # Build artifacts
 build*/
