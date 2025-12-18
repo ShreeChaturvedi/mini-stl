@@ -20,20 +20,18 @@ BENCH_CASE("unordered_map/emplace_reserve") {
   {
     unordered_map<std::string, int> m;
     m.reserve(n);
-    const auto ns = stl_bench::time_it([&] {
+    stl_bench::run_samples("unordered_map<string,int>::emplace (reserve)", n, [&] {
       for (std::size_t i = 0; i < n; ++i) m.emplace(keys[i], static_cast<int>(i));
     });
     stl_bench::do_not_optimize(m.size());
-    stl_bench::report("unordered_map<string,int>::emplace (reserve)", n, ns);
   }
 
   {
     std::unordered_map<std::string, int> m;
     m.reserve(n);
-    const auto ns = stl_bench::time_it([&] {
+    stl_bench::run_samples("std::unordered_map<string,int>::emplace (reserve)", n, [&] {
       for (std::size_t i = 0; i < n; ++i) m.emplace(keys[i], static_cast<int>(i));
     });
     stl_bench::do_not_optimize(m.size());
-    stl_bench::report("std::unordered_map<string,int>::emplace (reserve)", n, ns);
   }
 }

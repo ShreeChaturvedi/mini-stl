@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <iostream>
+#include <string>
 #include <string_view>
 
 namespace {
@@ -23,6 +24,8 @@ int main(int argc, char** argv) {
   std::size_t n = 100'000;
   std::string_view filter;
   bool list_only = false;
+  std::size_t iters = stl_bench::config().iters;
+  std::size_t warmup = stl_bench::config().warmup;
 
   for (int i = 1; i < argc; ++i) {
     const std::string_view arg = argv[i];
@@ -39,11 +42,25 @@ int main(int argc, char** argv) {
     } else if (arg == "--n" && i + 1 < argc) {
       const auto parsed = parse_n(argv[++i]);
       if (parsed != 0) n = parsed;
+    } else if (arg.starts_with("--iters=")) {
+      const auto parsed = parse_n(arg.substr(std::string_view("--iters=").size()));
+      if (parsed != 0) iters = parsed;
+    } else if (arg == "--iters" && i + 1 < argc) {
+      const auto parsed = parse_n(argv[++i]);
+      if (parsed != 0) iters = parsed;
+    } else if (arg.starts_with("--warmup=")) {
+      warmup = parse_n(arg.substr(std::string_view("--warmup=").size()));
+    } else if (arg == "--warmup" && i + 1 < argc) {
+      warmup = parse_n(argv[++i]);
     } else {
-      std::cerr << "Usage: " << argv[0] << " [--n N] [--filter substr] [--list]\n";
+      std::cerr << "Usage: " << argv[0]
+                << " [--n N] [--iters N] [--warmup N] [--filter substr] [--list]\n";
       return EXIT_FAILURE;
     }
   }
+
+  stl_bench::config().iters = iters;
+  stl_bench::config().warmup = warmup;
 
   auto& cases = stl_bench::registry();
   std::sort(cases.begin(), cases.end(), [](const auto& a, const auto& b) { return a.name < b.name; });
