@@ -44,6 +44,11 @@ public:
   const_iterator cend() const noexcept;
 
   iterator erase_after(iterator pos);
+  iterator insert_after(iterator pos, const T& value);
+  iterator insert_after(iterator pos, T&& value);
+
+  template <typename... Args>
+  iterator emplace_after(iterator pos, Args&&... args);
 
 private:
   struct NodeBase {

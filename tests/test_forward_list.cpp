@@ -19,6 +19,16 @@ TEST_CASE("ForwardList: push_front/erase_after") {
   CHECK_EQ(xs.front(), 2);
 }
 
+TEST_CASE("ForwardList: insert_after") {
+  ForwardList<int> xs;
+  auto before = xs.before_begin();
+  xs.insert_after(before, 1);
+  xs.insert_after(xs.begin(), 2);
+  CHECK_EQ(xs.front(), 1);
+  CHECK_EQ(*xs.begin(), 1);
+  CHECK_EQ(*(++xs.begin()), 2);
+}
+
 TEST_CASE("ForwardList: copy/move") {
   ForwardList<std::string> xs;
   xs.push_front("a");
@@ -31,4 +41,3 @@ TEST_CASE("ForwardList: copy/move") {
   ForwardList<std::string> zs(std::move(xs));
   CHECK_EQ(zs.front(), "b");
 }
-

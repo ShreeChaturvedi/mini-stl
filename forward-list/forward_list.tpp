@@ -132,7 +132,26 @@ typename ForwardList<T>::iterator ForwardList<T>::erase_after(iterator pos) {
 }
 
 template <typename T>
+typename ForwardList<T>::iterator ForwardList<T>::insert_after(iterator pos, const T& value) {
+  return insert_after(pos, T(value));
+}
+
+template <typename T>
+typename ForwardList<T>::iterator ForwardList<T>::insert_after(iterator pos, T&& value) {
+  return emplace_after(pos, std::move(value));
+}
+
+template <typename T>
+template <typename... Args>
+typename ForwardList<T>::iterator ForwardList<T>::emplace_after(iterator pos, Args&&... args) {
+  NodeBase* before = pos.node_;
+  auto* n = new Node(std::forward<Args>(args)...);
+  n->next = before->next;
+  before->next = n;
+  return iterator(n);
+}
+
+template <typename T>
 void ForwardList<T>::steal(ForwardList&& other) noexcept {
   head_.next = std::exchange(other.head_.next, nullptr);
 }
-
