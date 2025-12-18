@@ -34,6 +34,8 @@
 !forward-list/**
 !stack/
 !stack/**
+!priority-queue/
+!priority-queue/**
 
 # Build artifacts
 build*/
