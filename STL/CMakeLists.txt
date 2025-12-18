@@ -32,6 +32,7 @@ add_executable(stl_tests
   tests/test_vector.cpp
   tests/test_unordered_map.cpp
   tests/test_lru_cache.cpp
+  tests/test_trie.cpp
 )
 target_link_libraries(stl_tests PRIVATE stl)
 
