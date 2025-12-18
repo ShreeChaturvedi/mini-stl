@@ -57,8 +57,6 @@ public:
     std::size_t size() const noexcept;
     bool empty() const noexcept;
 
-    // For simpler output
-    friend std::ostream& operator<<(std::ostream& os, const Vector& vec);
 private:
     void ensure_capacity_for_one_more();
     static T* allocate(std::size_t n);
