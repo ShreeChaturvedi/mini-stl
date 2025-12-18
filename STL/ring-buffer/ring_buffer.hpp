@@ -7,6 +7,8 @@
 template <typename T, std::size_t capacity>
 class RingBuffer {
 public:
+    static_assert(capacity > 0, "RingBuffer capacity must be > 0");
+
     RingBuffer();
     std::size_t push(const T& element);
     T pop();
