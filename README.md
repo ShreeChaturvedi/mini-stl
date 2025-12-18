@@ -29,6 +29,10 @@ cmake --build STL/build -j
 ./STL/build/stl_bench --n 200000 --filter vector
 ```
 
+Benchmarks are microbenchmarks: each case runs the same operation over the same input size for the custom container and
+the closest `std::` container, then prints total time and time/op. Use `--n` to control the operation count and
+`--filter` to run a subset.
+
 ## Coverage (Clang)
 
 ```bash
