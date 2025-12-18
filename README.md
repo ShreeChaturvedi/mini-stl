@@ -14,6 +14,20 @@ A modern C++ (C++23) “build-your-own-STL” project: hand-rolled containers, R
 - `trie` — `Trie`
 - `lru-cache` — `LRUCache<K, V>`
 
+## Roadmap
+
+STL containers not implemented yet:
+
+- Sequence: `deque`, `list` (doubly-linked), `forward_list`, `span`, `basic_string`
+- Associative: `map`, `set`, `multimap`, `multiset`
+- Unordered: `unordered_set`, `unordered_multimap`, `unordered_multiset`
+- Adapters: `stack`, `queue`, `priority_queue`
+
+Common “Boost-style” containers worth adding:
+
+- `small_vector` (inline storage), `flat_map`/`flat_set` (sorted vector-backed), `stable_vector`
+- `circular_buffer` (already covered by `RingBuffer<T, N>`, modulo API differences)
+
 ## Build + Test
 
 ```bash
