@@ -37,6 +37,7 @@ add_executable(stl_tests
   tests/test_unordered_map.cpp
   tests/test_lru_cache.cpp
   tests/test_trie.cpp
+  tests/test_stack.cpp
 )
 target_link_libraries(stl_tests PRIVATE stl)
 add_test(NAME stl_tests COMMAND stl_tests)

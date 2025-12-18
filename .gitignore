@@ -32,6 +32,8 @@
 !lru-cache/**
 !forward-list/
 !forward-list/**
+!stack/
+!stack/**
 
 # Build artifacts
 build*/
