@@ -3,6 +3,10 @@
 !.gitignore
 !README.md
 !LICENSE
+!.github/
+!.github/**
+!scripts/
+!scripts/**
 !STL/
 !STL/**
 
