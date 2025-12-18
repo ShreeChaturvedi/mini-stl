@@ -1,14 +1,15 @@
 #pragma once
 
 #include <cstddef>
-#include <forward_list>
 #include <functional>
 #include <iterator>
 #include <memory>
 #include <stdexcept>
 #include <type_traits>
 #include <utility>
-#include <vector>
+
+#include "forward-list/forward_list.hpp"
+#include "vector/vector.hpp"
 
 template <typename K, typename V, typename Hash = std::hash<K>, typename KeyEqual = std::equal_to<K>>
 class unordered_map {
@@ -21,12 +22,12 @@ public:
   template <typename T_value, typename T_list_iterator>
   class base_iterator;
 
-  using iterator = base_iterator<pair_type, typename std::forward_list<pair_type>::iterator>;
-  using const_iterator = base_iterator<const pair_type, typename std::forward_list<pair_type>::const_iterator>;
+  using iterator = base_iterator<pair_type, typename ForwardList<pair_type>::iterator>;
+  using const_iterator = base_iterator<const pair_type, typename ForwardList<pair_type>::const_iterator>;
 
   unordered_map() : unordered_map(16) {}
-  explicit unordered_map(size_type bucket_count) : buckets_(bucket_count), size_(0), max_load_factor_(1.0f) {
-    if (buckets_.empty()) buckets_.resize(1);
+  explicit unordered_map(size_type bucket_count) : buckets_{}, size_(0), max_load_factor_(1.0f) {
+    buckets_.resize(bucket_count == 0 ? 1 : bucket_count);
   }
 
   bool empty() const noexcept { return size_ == 0; }
@@ -53,7 +54,8 @@ public:
 
   void rehash(size_type bucket_count) {
     if (bucket_count < 1) bucket_count = 1;
-    std::vector<std::forward_list<pair_type>> next(bucket_count);
+    Vector<ForwardList<pair_type>> next;
+    next.resize(bucket_count);
 
     for (auto& bucket : buckets_) {
       for (auto& kv : bucket) {
@@ -85,7 +87,7 @@ public:
   const_iterator cend() const { return const_iterator::end(this); }
 
 private:
-  std::vector<std::forward_list<pair_type>> buckets_;
+  Vector<ForwardList<pair_type>> buckets_;
   size_type size_;
   float max_load_factor_;
 
@@ -235,4 +237,3 @@ private:
     it_ = map_->buckets_[bucket_].begin();
   }
 };
-
