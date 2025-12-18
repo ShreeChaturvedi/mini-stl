@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../unique-ptr/unique_ptr.hpp"
+#include "unique-ptr/unique_ptr.hpp"
 
 #include <array>
 #include <cstddef>

@@ -1,6 +1,6 @@
 #include "bench.hpp"
 
-#include "../unordered-map/unordered_map.hpp"
+#include "unordered-map/unordered_map.hpp"
 
 #include <random>
 #include <string>

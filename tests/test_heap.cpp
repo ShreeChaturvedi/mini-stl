@@ -1,6 +1,6 @@
 #include "test.hpp"
 
-#include "../heap/heap.hpp"
+#include "heap/heap.hpp"
 
 #include <algorithm>
 #include <random>
@@ -31,4 +31,3 @@ TEST_CASE("Heap: heap sort matches std::sort") {
   Heap<int>::sort(xs);
   CHECK(xs == ys);
 }
-

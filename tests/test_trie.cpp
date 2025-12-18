@@ -1,6 +1,6 @@
 #include "test.hpp"
 
-#include "../trie/trie.hpp"
+#include "trie/trie.hpp"
 
 TEST_CASE("Trie: insert/contains/erase") {
   Trie t;

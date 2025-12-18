@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Configure
-        run: cmake -S STL -B build -DCMAKE_BUILD_TYPE=Release -DSTL_ENABLE_WERROR=ON
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSTL_ENABLE_WERROR=ON
 
       - name: Build
         run: cmake --build build -j

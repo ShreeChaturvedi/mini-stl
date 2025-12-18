@@ -1,4 +1,4 @@
-# mini-stl repo: track only STL/ (other learn-cpp modules are handled separately)
+# mini-stl repo: keep unrelated learn-cpp modules out of git history
 /*
 !.gitignore
 !README.md
@@ -7,11 +7,32 @@
 !.github/**
 !scripts/
 !scripts/**
-!STL/
-!STL/**
+!CMakeLists.txt
+!tests/
+!tests/**
+!bench/
+!bench/**
+!array-list/
+!array-list/**
+!linked-list/
+!linked-list/**
+!ring-buffer/
+!ring-buffer/**
+!vector/
+!vector/**
+!unordered-map/
+!unordered-map/**
+!heap/
+!heap/**
+!trie/
+!trie/**
+!unique-ptr/
+!unique-ptr/**
+!lru-cache/
+!lru-cache/**
 
 # Build artifacts
-STL/build*/
+build*/
 **/*.o
 **/*.dSYM/
 **/a.out

@@ -1,6 +1,6 @@
 #include "bench.hpp"
 
-#include "../vector/vector.hpp"
+#include "vector/vector.hpp"
 
 #include <random>
 #include <vector>

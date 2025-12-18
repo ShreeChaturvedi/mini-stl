@@ -1,6 +1,6 @@
 #include "test.hpp"
 
-#include "../array-list/array_list.hpp"
+#include "array-list/array_list.hpp"
 
 #include <string>
 

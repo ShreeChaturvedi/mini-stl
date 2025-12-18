@@ -1,6 +1,6 @@
 #include "test.hpp"
 
-#include "../unique-ptr/unique_ptr.hpp"
+#include "unique-ptr/unique_ptr.hpp"
 
 struct DropCounter {
   static inline int drops = 0;

@@ -1,6 +1,6 @@
 #include "test.hpp"
 
-#include "../lru-cache/lru_cache.hpp"
+#include "lru-cache/lru_cache.hpp"
 
 TEST_CASE("LRUCache: insert/get/eviction") {
   LRUCache<int, int> c(2);

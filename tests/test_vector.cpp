@@ -1,6 +1,6 @@
 #include "test.hpp"
 
-#include "../vector/vector.hpp"
+#include "vector/vector.hpp"
 
 #include <string>
 
@@ -25,4 +25,3 @@ TEST_CASE("Vector: copy/move") {
 }
 
 TEST_CASE("Vector: at throws") { CHECK_THROWS((Vector<int>{1, 2, 3}.at(99))); }
-

@@ -1,6 +1,6 @@
 #include "test.hpp"
 
-#include "../linked-list/linked_list.hpp"
+#include "linked-list/linked_list.hpp"
 
 TEST_CASE("LinkedList: append/index/size") {
   LinkedList<int> xs;

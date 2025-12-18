@@ -1,6 +1,6 @@
 #include "test.hpp"
 
-#include "../unordered-map/unordered_map.hpp"
+#include "unordered-map/unordered_map.hpp"
 
 #include <string>
 
@@ -25,4 +25,3 @@ TEST_CASE("unordered_map: erase") {
   CHECK_EQ(m.size(), 99u);
   CHECK_THROWS(m.at(42));
 }
-
