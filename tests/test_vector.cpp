@@ -43,4 +43,65 @@ TEST_CASE("Vector: copy/move") {
   CHECK_EQ(zs[2], "c");
 }
 
+TEST_CASE("Vector: insert/erase") {
+  Vector<int> xs{1, 3, 4};
+  auto it = xs.insert(xs.begin() + 1, 2);
+  CHECK_EQ(*it, 2);
+  CHECK_EQ(xs.size(), 4u);
+  CHECK_EQ(xs[0], 1);
+  CHECK_EQ(xs[1], 2);
+  CHECK_EQ(xs[2], 3);
+  CHECK_EQ(xs[3], 4);
+
+  it = xs.erase(xs.begin() + 2);
+  CHECK_EQ(*it, 4);
+  CHECK_EQ(xs.size(), 3u);
+  CHECK_EQ(xs[0], 1);
+  CHECK_EQ(xs[1], 2);
+  CHECK_EQ(xs[2], 4);
+
+  xs.insert(xs.begin(), 0);
+  xs.insert(xs.end(), 5);
+  CHECK_EQ(xs.size(), 5u);
+  CHECK_EQ(xs.front(), 0);
+  CHECK_EQ(xs.back(), 5);
+
+  xs.erase(xs.begin() + 1, xs.begin() + 4);
+  CHECK_EQ(xs.size(), 2u);
+  CHECK_EQ(xs[0], 0);
+  CHECK_EQ(xs[1], 5);
+}
+
+namespace {
+struct MoveOnlyNoAssign {
+  int value;
+
+  explicit MoveOnlyNoAssign(int v) : value(v) {}
+  MoveOnlyNoAssign(const MoveOnlyNoAssign&) = delete;
+  MoveOnlyNoAssign& operator=(const MoveOnlyNoAssign&) = delete;
+  MoveOnlyNoAssign(MoveOnlyNoAssign&&) noexcept = default;
+  MoveOnlyNoAssign& operator=(MoveOnlyNoAssign&&) = delete;
+};
+}  // namespace
+
+TEST_CASE("Vector: insert/erase without assignment") {
+  Vector<MoveOnlyNoAssign> xs;
+  xs.emplace_back(1);
+  xs.emplace_back(3);
+
+  auto it = xs.emplace(xs.begin() + 1, 2);
+  CHECK_EQ(it->value, 2);
+  CHECK_EQ(xs.size(), 3u);
+  CHECK_EQ(xs[0].value, 1);
+  CHECK_EQ(xs[1].value, 2);
+  CHECK_EQ(xs[2].value, 3);
+
+  xs.erase(xs.begin() + 1);
+  CHECK_EQ(xs.size(), 2u);
+  CHECK_EQ(xs[0].value, 1);
+  CHECK_EQ(xs[1].value, 3);
+
+  CHECK_THROWS(xs.erase(xs.end()));
+}
+
 TEST_CASE("Vector: at throws") { CHECK_THROWS((Vector<int>{1, 2, 3}.at(99))); }

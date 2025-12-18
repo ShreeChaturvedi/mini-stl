@@ -43,6 +43,15 @@ public:
     template <typename... Args>
     T& emplace_back(Args&&... args);
 
+    iterator insert(const_iterator pos, const T& value);
+    iterator insert(const_iterator pos, T&& value);
+
+    template <typename... Args>
+    iterator emplace(const_iterator pos, Args&&... args);
+
+    iterator erase(const_iterator pos);
+    iterator erase(const_iterator first, const_iterator last);
+
     //iterators
     iterator begin() noexcept;
     const_iterator begin() const noexcept;
