@@ -1,6 +1,6 @@
 #include "test.hpp"
 
-#include "../linked-list/list.h"
+#include "../linked-list/linked_list.hpp"
 
 TEST_CASE("LinkedList: append/index/size") {
   LinkedList<int> xs;
@@ -24,4 +24,3 @@ TEST_CASE("LinkedList: insert/remove") {
   CHECK_EQ(xs.size(), 2u);
   CHECK_EQ(xs[1], 2);
 }
-

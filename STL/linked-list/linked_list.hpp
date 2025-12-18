@@ -24,11 +24,11 @@ public:
   T& operator[](std::size_t index);
   const T& operator[](std::size_t index) const;
   friend std::ostream& operator<<(std::ostream& os, const LinkedList<T>& list) {
-    if (list.m_Size == 0) return os << "[]";
+    if (list.size_ == 0) return os << "[]";
 
-    Node* it = list.m_Sentinel->next;
+    Node* it = list.sentinel_->next;
     os << '[';
-    for (std::size_t pos = 1; pos < list.m_Size; ++pos) {
+    for (std::size_t pos = 1; pos < list.size_; ++pos) {
       os << it->data << ", ";
       it = it->next;
     }
@@ -44,11 +44,11 @@ private:
     Node() : data(T{}), next(nullptr) {}
     Node(const T& value, Node* n) : data(value), next(n) {}
   };
-  Node* m_Sentinel;
-  Node* m_End;
-  std::size_t m_Size;
+  Node* sentinel_;
+  Node* end_;
+  std::size_t size_;
 
   Node* node_before(std::size_t index) const;
 };
 
-#include "list.tpp"
+#include "linked_list.tpp"
