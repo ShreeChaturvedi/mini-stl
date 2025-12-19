@@ -1,12 +1,15 @@
-# mini-stl repo: keep unrelated learn-cpp modules out of git history
+# my-stl repo: keep unrelated learn-cpp modules out of git history
 /*
 !.gitignore
 !README.md
 !LICENSE
+!CONTRIBUTING.md
 !.github/
 !.github/**
 !scripts/
 !scripts/**
+!docs/
+!docs/**
 !CMakeLists.txt
 !tests/
 !tests/**
