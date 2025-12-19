@@ -7,6 +7,12 @@ from pathlib import Path
 
 PAIRINGS = [
     {
+        "id": "deque_push_pop",
+        "title": "Deque push_back+pop_front",
+        "mini": "Deque<int>::push_back+pop_front",
+        "std": "std::deque<int>::push_back+pop_front",
+    },
+    {
         "id": "vector_push_back_no_reserve",
         "title": "Vector push_back (no reserve)",
         "mini": "Vector<int>::push_back (no reserve)",

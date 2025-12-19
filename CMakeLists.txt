@@ -57,6 +57,7 @@ add_test(NAME stl_tests COMMAND stl_tests)
 
 add_executable(stl_bench
   bench/bench_main.cpp
+  bench/bench_deque.cpp
   bench/bench_vector.cpp
   bench/bench_unordered_map.cpp
   bench/bench_flat_map.cpp
