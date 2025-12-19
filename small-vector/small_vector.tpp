@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cstring>
 #include <new>
 
 template <typename T, std::size_t InlineCapacity>
@@ -138,7 +139,9 @@ void SmallVector<T, InlineCapacity>::clear() noexcept {
 template <typename T, std::size_t InlineCapacity>
 void SmallVector<T, InlineCapacity>::grow_to(size_type new_capacity) {
   T* new_data = allocate(new_capacity);
-  if constexpr (std::is_nothrow_move_constructible_v<T>) {
+  if constexpr (std::is_trivially_copyable_v<T>) {
+    if (size_ > 0) std::memcpy(new_data, data_, size_ * sizeof(T));
+  } else if constexpr (std::is_nothrow_move_constructible_v<T>) {
     std::uninitialized_move_n(data_, size_, new_data);
   } else {
     std::uninitialized_copy_n(data_, size_, new_data);
@@ -160,7 +163,7 @@ template <typename... Args>
 T& SmallVector<T, InlineCapacity>::emplace_back(Args&&... args) {
   if (size_ == capacity_) {
     const size_type required = size_ + 1;
-    size_type next = capacity_ == 0 ? 1 : (capacity_ == 1 ? 2 : (capacity_ + (capacity_ >> 1)));
+    size_type next = capacity_ == 0 ? 1 : (capacity_ * 2);
     if (next < required) next = required;
     grow_to(next);
   }
@@ -194,7 +197,7 @@ typename SmallVector<T, InlineCapacity>::iterator SmallVector<T, InlineCapacity>
   if constexpr (std::is_move_assignable_v<T> || std::is_copy_assignable_v<T>) {
     if (size_ == capacity_) {
       const size_type required = size_ + 1;
-      size_type next = capacity_ == 0 ? 1 : (capacity_ == 1 ? 2 : (capacity_ + (capacity_ >> 1)));
+      size_type next = capacity_ == 0 ? 1 : (capacity_ * 2);
       if (next < required) next = required;
       grow_to(next);
     }
