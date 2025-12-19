@@ -7,6 +7,7 @@ Each page describes API surface, invariants, complexity, and known differences v
 - `ArrayList<T>` -- `array_list.md`
 - `Deque<T>` -- `deque.md`
 - `FlatMap<K, V>` -- `flat_map.md`
+- `FlatSet<K>` -- `flat_set.md`
 - `ForwardList<T>` -- `forward_list.md`
 - `Heap<T>` -- `heap.md`
 - `LinkedList<T>` -- `linked_list.md`
