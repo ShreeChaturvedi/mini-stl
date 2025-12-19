@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![c++](https://img.shields.io/badge/C%2B%2B-23-blue.svg)](https://isocpp.org/)
 
-A modern C++23 "build-your-own STL" project: header-only containers, RAII utilities, tests, and published benchmarks.
+C++23 container library with STL-style APIs, RAII utilities, and published performance results.
 
 ## Highlights
 
