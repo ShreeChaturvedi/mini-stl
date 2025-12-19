@@ -6,6 +6,7 @@
 #include <memory>
 #include <type_traits>
 #include <utility>
+#include <vector>
 
 template <typename Value, typename KeyOfValue, typename Compare, bool Multi>
 class RbTree {
@@ -25,18 +26,26 @@ public:
   RbTree(RbTree&& other) noexcept : root_(nullptr), size_(0), comp_(std::move(other.comp_)), key_of_() {
     root_ = std::exchange(other.root_, nullptr);
     size_ = std::exchange(other.size_, 0);
+    blocks_ = std::move(other.blocks_);
+    free_ = std::exchange(other.free_, nullptr);
   }
 
   RbTree& operator=(RbTree&& other) noexcept {
     if (this == &other) return *this;
     clear();
+    release_blocks();
     root_ = std::exchange(other.root_, nullptr);
     size_ = std::exchange(other.size_, 0);
     comp_ = std::move(other.comp_);
+    blocks_ = std::move(other.blocks_);
+    free_ = std::exchange(other.free_, nullptr);
     return *this;
   }
 
-  ~RbTree() { clear(); }
+  ~RbTree() {
+    clear();
+    release_blocks();
+  }
 
   bool empty() const noexcept { return size_ == 0; }
   size_type size() const noexcept { return size_; }
@@ -147,7 +156,7 @@ public:
       else if (comp_(key_of_(curr->value), k)) curr = curr->right;
       else return {iterator(curr, this), false};
     }
-    Node* node = new Node(std::move(value));
+    Node* node = create_node(std::move(value));
     node->parent = parent;
     link_node(parent, node, k);
     insert_fixup(node);
@@ -164,7 +173,7 @@ public:
       if (comp_(k, key_of_(curr->value))) curr = curr->left;
       else curr = curr->right;
     }
-    Node* node = new Node(std::move(value));
+    Node* node = create_node(std::move(value));
     node->parent = parent;
     link_node(parent, node, k);
     insert_fixup(node);
@@ -191,10 +200,20 @@ private:
     Color color = Color::Red;
   };
 
+  struct FreeNode {
+    FreeNode* next = nullptr;
+  };
+
+  using Storage = std::aligned_storage_t<sizeof(Node), alignof(Node)>;
+  static constexpr size_type kBlockSize = 512;
+
   Node* root_;
   size_type size_;
   Compare comp_;
   KeyOfValue key_of_;
+  std::allocator<Storage> storage_alloc_{};
+  std::vector<Storage*> blocks_;
+  FreeNode* free_ = nullptr;
 
   static Node* minimum(Node* n) noexcept {
     if (!n) return nullptr;
@@ -234,6 +253,34 @@ private:
       p = p->parent;
     }
     return p;
+  }
+
+  void allocate_block() {
+    Storage* block = storage_alloc_.allocate(kBlockSize);
+    blocks_.push_back(block);
+    for (size_type i = 0; i < kBlockSize; ++i) {
+      auto* slot = std::construct_at(reinterpret_cast<FreeNode*>(block + i), FreeNode{free_});
+      free_ = slot;
+    }
+  }
+
+  Node* create_node(value_type value) {
+    if (!free_) allocate_block();
+    FreeNode* slot = free_;
+    free_ = free_->next;
+    return std::construct_at(reinterpret_cast<Node*>(slot), std::move(value));
+  }
+
+  void destroy_node(Node* node) noexcept {
+    std::destroy_at(node);
+    auto* slot = std::construct_at(reinterpret_cast<FreeNode*>(node), FreeNode{free_});
+    free_ = slot;
+  }
+
+  void release_blocks() noexcept {
+    for (auto* block : blocks_) storage_alloc_.deallocate(block, kBlockSize);
+    blocks_.clear();
+    free_ = nullptr;
   }
 
   void link_node(Node* parent, Node* node, const decltype(key_of_(std::declval<value_type&>()))& k) {
@@ -360,7 +407,7 @@ private:
       y->color = z->color;
     }
 
-    delete z;
+    destroy_node(z);
     --size_;
     if (y_original == Color::Black) erase_fixup(x, x_parent);
   }
@@ -430,7 +477,7 @@ private:
     if (!n) return;
     destroy_subtree(n->left);
     destroy_subtree(n->right);
-    delete n;
+    destroy_node(n);
   }
 
 public:
@@ -528,4 +575,3 @@ public:
     const RbTree* tree_;
   };
 };
-
