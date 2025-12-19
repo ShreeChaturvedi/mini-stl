@@ -12,3 +12,4 @@ Each page describes API surface, invariants, complexity, and known differences v
 - `Queue<T>` -- `queue.md`
 - `Stack<T>` -- `stack.md`
 - `Vector<T>` -- `vector.md`
+- `RingBuffer<T, N>` -- `ring_buffer.md`
