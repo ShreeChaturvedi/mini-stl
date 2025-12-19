@@ -204,7 +204,9 @@ private:
     FreeNode* next = nullptr;
   };
 
-  using Storage = std::aligned_storage_t<sizeof(Node), alignof(Node)>;
+  struct Storage {
+    alignas(Node) std::byte data[sizeof(Node)];
+  };
   static constexpr size_type kBlockSize = 512;
 
   Node* root_;
