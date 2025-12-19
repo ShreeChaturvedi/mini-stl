@@ -10,4 +10,5 @@ Each page describes API surface, invariants, complexity, and known differences v
 - `LinkedList<T>` -- `linked_list.md`
 - `List<T>` -- `list.md`
 - `Queue<T>` -- `queue.md`
+- `Stack<T>` -- `stack.md`
 - `Vector<T>` -- `vector.md`
