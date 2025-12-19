@@ -5,4 +5,5 @@ Each page describes API surface, invariants, complexity, and known differences v
 ## Index
 
 - `ArrayList<T>` -- `array_list.md`
+- `Deque<T>` -- `deque.md`
 - `Vector<T>` -- `vector.md`
