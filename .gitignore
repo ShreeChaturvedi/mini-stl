@@ -4,6 +4,7 @@
 !README.md
 !LICENSE
 !CONTRIBUTING.md
+!.clang-format
 !.github/
 !.github/**
 !scripts/

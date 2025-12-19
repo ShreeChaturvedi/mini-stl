@@ -26,6 +26,12 @@ ctest --test-dir build --output-on-failure
 - Match existing style in the module you touch.
 - Add tests for new behavior or bug fixes.
 
+## Formatting
+
+- `clang-format` is configured in `.clang-format`.
+- Run `./scripts/format.sh` or `scripts/format.ps1` (Windows).
+- CMake target: `cmake --build build --target format`.
+
 ## Documentation
 
 - Public APIs should include Doxygen-friendly comments where appropriate.

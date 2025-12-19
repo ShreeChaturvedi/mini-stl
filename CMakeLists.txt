@@ -120,6 +120,26 @@ if (DOXYGEN_FOUND)
   )
 endif()
 
+find_program(CLANG_FORMAT NAMES clang-format)
+if (CLANG_FORMAT)
+  if (WIN32)
+    add_custom_target(format
+      COMMAND powershell -ExecutionPolicy Bypass -File
+              "${CMAKE_CURRENT_SOURCE_DIR}/scripts/format.ps1"
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+      COMMENT "Running clang-format"
+      VERBATIM
+    )
+  else()
+    add_custom_target(format
+      COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/scripts/format.sh"
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+      COMMENT "Running clang-format"
+      VERBATIM
+    )
+  endif()
+endif()
+
 add_executable(stl_bench
   bench/bench_main.cpp
   bench/bench_deque.cpp

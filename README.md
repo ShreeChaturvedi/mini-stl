@@ -50,6 +50,19 @@ ctest --test-dir build --output-on-failure
 
 Tests are written with Catch2.
 
+## Formatting
+
+```bash
+./scripts/format.sh
+cmake --build build --target format
+```
+
+Windows:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/format.ps1
+```
+
 ## Benchmarks (Latest Run)
 
 Run file: `docs/benchmarks/runs/bench-20251219-154045-m2.json`
