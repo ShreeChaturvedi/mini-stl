@@ -9,4 +9,5 @@ Each page describes API surface, invariants, complexity, and known differences v
 - `ForwardList<T>` -- `forward_list.md`
 - `LinkedList<T>` -- `linked_list.md`
 - `List<T>` -- `list.md`
+- `Queue<T>` -- `queue.md`
 - `Vector<T>` -- `vector.md`
