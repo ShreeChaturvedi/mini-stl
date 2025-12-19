@@ -4,49 +4,31 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![c++](https://img.shields.io/badge/C%2B%2B-23-blue.svg)](https://isocpp.org/)
 
-A modern C++23 "build-your-own STL" project: header-only containers, RAII utilities, tests, and benchmarks.
+A modern C++23 "build-your-own STL" project: header-only containers, RAII utilities, tests, and published benchmarks.
 
 ## Highlights
 
 - Header-only containers with STL-like APIs and deterministic behavior.
 - Self-hosting where it makes sense (containers built on other my-stl containers).
-- Unit tests for every container plus a small benchmark harness.
-- Clear separation of container modules and supporting utilities.
+- Full unit test suite and reproducible benchmarks with published results.
 
-## Container Matrix
+## Containers
 
-Y = implemented and tested, Bench = has benchmark coverage.
+Sequence:
+`ArrayList`, `Vector`, `Deque`, `ForwardList`, `LinkedList`, `List`, `RingBuffer`, `SmallVector`, `StableVector`,
+`Span`, `basic_string`.
 
-| Module | Primary type(s) | Notes | Test | Bench |
-| --- | --- | --- | --- | --- |
-| `array-list/` | `ArrayList<T>` | simple contiguous array list | Y | N |
-| `vector/` | `Vector<T>` | allocator-aware dynamic array | Y | Y |
-| `deque/` | `Deque<T>` | ring-buffer deque | Y | N |
-| `forward-list/` | `ForwardList<T>` | singly linked list | Y | N |
-| `linked-list/` | `LinkedList<T>` | singly linked list with tail | Y | N |
-| `list/` | `List<T>` | doubly linked list with sentinel | Y | N |
-| `stack/` | `Stack<T>` | `Vector` adaptor | Y | N |
-| `queue/` | `Queue<T>` | `List` adaptor | Y | N |
-| `heap/` | `Heap<T, Compare, branches>` | d-ary heap | Y | N |
-| `priority-queue/` | `PriorityQueue<T, Compare, branches>` | heap adaptor | Y | N |
-| `ring-buffer/` | `RingBuffer<T, N>` | fixed-size circular buffer | Y | N |
-| `map/` | `map<K, V>`, `multimap<K, V>` | RB-tree-backed | Y | N |
-| `set/` | `set<K>`, `multiset<K>` | RB-tree-backed | Y | N |
-| `unordered-map/` | `unordered_map<K, V>` | separate chaining | Y | Y |
-| `unordered-set/` | `unordered_set<K>` | map-backed | Y | N |
-| `unordered-multimap/` | `unordered_multimap<K, V>` | separate chaining | Y | N |
-| `unordered-multiset/` | `unordered_multiset<K>` | multimap-backed | Y | N |
-| `flat-map/` | `FlatMap<K, V>` | sorted vector-backed | Y | Y |
-| `flat-set/` | `FlatSet<K>` | sorted vector-backed | Y | Y |
-| `small-vector/` | `SmallVector<T, N>` | inline storage | Y | Y |
-| `stable-vector/` | `StableVector<T>` | pointer-stable storage | Y | Y |
-| `span/` | `Span<T>` | view over contiguous data | Y | N |
-| `string/` | `basic_string<CharT>` | SSO string | Y | N |
-| `unique-ptr/` | `unique_ptr<T>` | single-owner RAII | Y | N |
-| `trie/` | `Trie` | byte radix tree | Y | N |
-| `lru-cache/` | `LRUCache<K, V>` | list + map | Y | N |
-| `rb-tree/` | `RbTree<...>` | internal building block | Y (indirect) | N |
-| `utility/` | `unit` | internal building block | Y (indirect) | N |
+Associative:
+`map`/`multimap`, `set`/`multiset`, `FlatMap`, `FlatSet`.
+
+Unordered:
+`unordered_map`, `unordered_set`, `unordered_multimap`, `unordered_multiset`.
+
+Adaptors:
+`Stack`, `Queue`, `PriorityQueue`, `Heap`.
+
+Utilities:
+`LRUCache`, `Trie`, `unique_ptr` (plus internal `RbTree`).
 
 ## Design Notes
 
@@ -66,7 +48,34 @@ cmake --build build -j
 ./build/stl_tests
 ```
 
-## Benchmarks
+## Benchmarks (Latest Run)
+
+Run file: `docs/benchmarks/runs/bench-20251219-132313-m2.json`
+
+- Apple M2, macOS 15.5
+- Apple clang 17.0.0
+- Release (`-O3`)
+
+Median ns/op (ratio = my-stl / std):
+
+| Case | my-stl | std | Ratio |
+| --- | --- | --- | --- |
+| Deque push_back+pop_front | 1.831 | 5.155 | 0.355 |
+| Vector push_back (no reserve) | 1.184 | 0.985 | 1.202 |
+| Vector push_back (reserve) | 0.470 | 0.467 | 1.007 |
+| unordered_map emplace (reserve) | 48.570 | 41.019 | 1.184 |
+| map build+find | 316.520 | 236.631 | 1.338 |
+| set build+find | 246.726 | 190.280 | 1.297 |
+| flat_map build+find | 8675.880 | 204.992 | 42.323 |
+| flat_set build+find | 4858.020 | 201.612 | 24.096 |
+| small_vector push_back | 1.206 | 0.810 | 1.488 |
+| stable_vector push_back | 16.427 | 14.426 | 1.139 |
+
+Full results: `docs/benchmarks/bench_summary.csv`
+
+![Benchmark ratio chart](docs/benchmarks/charts/ratio.svg)
+
+## Run Benchmarks
 
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -75,20 +84,12 @@ cmake --build build -j
 ./build/stl_bench --n 200000 --iters 5 --warmup 1 --filter vector
 ```
 
-Benchmark methodology, charts, and recorded results are in `docs/benchmarks.md`.
-Use the scripts in `scripts/bench/` to run and regenerate reports on your machine.
+Detailed methodology and scripts: `docs/benchmarks.md` and `scripts/bench/`.
 
 ## Documentation
 
 - `docs/containers/README.md` -- per-container notes, complexity, differences vs `std::`
 - `docs/benchmarks.md` -- benchmark methodology and results
-
-## Repository Layout
-
-- `tests/` -- unit tests
-- `bench/` -- microbenchmarks
-- `docs/` -- documentation and reports
-- `*/` -- each top-level container is a self-contained module
 
 ## Contributing
 
