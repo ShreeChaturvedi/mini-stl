@@ -30,3 +30,4 @@ Each page describes API surface, invariants, complexity, and known differences v
 - `Trie` -- `trie.md`
 - `Vector<T>` -- `vector.md`
 - `RingBuffer<T, N>` -- `ring_buffer.md`
+- `RbTree` -- `rb_tree.md`
