@@ -15,5 +15,6 @@ Each page describes API surface, invariants, complexity, and known differences v
 - `Queue<T>` -- `queue.md`
 - `set<K>` -- `set.md`
 - `Stack<T>` -- `stack.md`
+- `unordered_map<K, V>` -- `unordered_map.md`
 - `Vector<T>` -- `vector.md`
 - `RingBuffer<T, N>` -- `ring_buffer.md`
