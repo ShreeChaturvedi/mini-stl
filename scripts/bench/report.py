@@ -31,6 +31,12 @@ PAIRINGS = [
         "std": "std::unordered_map<string,int>::emplace (reserve)",
     },
     {
+        "id": "map_build_find",
+        "title": "map build+find",
+        "mini": "map/build+find (my-stl)",
+        "std": "map/build+find (std::map)",
+    },
+    {
         "id": "flat_map_build_find",
         "title": "flat_map build+find",
         "mini": "flat_map/build+find (mini-stl)",
