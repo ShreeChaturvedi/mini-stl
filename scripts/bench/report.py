@@ -8,7 +8,7 @@ from pathlib import Path
 PAIRINGS = [
     {
         "id": "deque_push_pop",
-        "title": "Deque push_back+pop_front",
+        "title": "Deque push_back + pop_front",
         "mini": "Deque<int>::push_back+pop_front",
         "std": "std::deque<int>::push_back+pop_front",
     },
@@ -32,25 +32,25 @@ PAIRINGS = [
     },
     {
         "id": "map_build_find",
-        "title": "map build+find",
+        "title": "map build + find",
         "mini": "map/build+find (my-stl)",
         "std": "map/build+find (std::map)",
     },
     {
         "id": "set_build_find",
-        "title": "set build+find",
+        "title": "set build + find",
         "mini": "set/build+find (my-stl)",
         "std": "set/build+find (std::set)",
     },
     {
         "id": "flat_map_build_find",
-        "title": "flat_map build+find",
+        "title": "flat_map build + find",
         "mini": "flat_map/build+find (sorted, my-stl)",
         "std": "flat_map/build+find (sorted, std::map)",
     },
     {
         "id": "flat_set_build_find",
-        "title": "flat_set build+find",
+        "title": "flat_set build + find",
         "mini": "flat_set/build+find (sorted, my-stl)",
         "std": "flat_set/build+find (sorted, std::set)",
     },

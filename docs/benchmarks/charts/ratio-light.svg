@@ -4,7 +4,7 @@
 <text x="260" y="20">Median ns/op ratio (my-stl / std). Lower is better.</text>
 <line class="axis" x1="260" y1="34" x2="260" y2="340"/>
 <line class="baseline" x1="721.090605599418" y1="34" x2="721.090605599418" y2="340"/>
-<text x="10" y="55">Deque push_back+pop_front</text>
+<text x="10" y="55">Deque push_back + pop_front</text>
 <rect class="bar" x="260" y="40" width="274.3" height="18"/>
 <text x="540.3" y="55">0.59x</text>
 <text x="10" y="83">Vector push_back (no reserve)</text>
@@ -16,16 +16,16 @@
 <text x="10" y="139">unordered_map emplace (reserve)</text>
 <rect class="bar" x="260" y="124" width="545.5" height="18"/>
 <text x="811.5" y="139">1.18x</text>
-<text x="10" y="167">map build+find</text>
+<text x="10" y="167">map build + find</text>
 <rect class="bar" x="260" y="152" width="517.2" height="18"/>
 <text x="783.2" y="167">1.12x</text>
-<text x="10" y="195">set build+find</text>
+<text x="10" y="195">set build + find</text>
 <rect class="bar" x="260" y="180" width="523.6" height="18"/>
 <text x="789.6" y="195">1.14x</text>
-<text x="10" y="223">flat_map build+find</text>
+<text x="10" y="223">flat_map build + find</text>
 <rect class="bar" x="260" y="208" width="174.1" height="18"/>
 <text x="440.1" y="223">0.38x</text>
-<text x="10" y="251">flat_set build+find</text>
+<text x="10" y="251">flat_set build + find</text>
 <rect class="bar" x="260" y="236" width="105.9" height="18"/>
 <text x="371.9" y="251">0.23x</text>
 <text x="10" y="279">small_vector push_back</text>

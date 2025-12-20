@@ -31,14 +31,14 @@ Summary (median ns/op; ratio = my-stl / std):
 
 | Case | my-stl (ns/op) | std (ns/op) | Ratio |
 | --- | --- | --- | --- |
-| Deque push_back+pop_front | `1.720` | `2.892` | `0.595x` |
+| Deque push_back + pop_front | `1.720` | `2.892` | `0.595x` |
 | Vector push_back (no reserve) | `1.609` | `2.516` | `0.640x` |
 | Vector push_back (reserve) | `0.463` | `0.465` | `0.996x` |
 | unordered_map emplace (reserve) | `48.886` | `41.325` | `1.183x` |
-| map build+find | `239.379` | `213.428` | `1.122x` |
-| set build+find | `216.455` | `190.596` | `1.136x` |
-| flat_map build+find | `50.222` | `133.032` | `0.378x` |
-| flat_set build+find | `43.602` | `189.874` | `0.230x` |
+| map build + find | `239.379` | `213.428` | `1.122x` |
+| set build + find | `216.455` | `190.596` | `1.136x` |
+| flat_map build + find | `50.222` | `133.032` | `0.378x` |
+| flat_set build + find | `43.602` | `189.874` | `0.230x` |
 | small_vector push_back | `0.856` | `0.804` | `1.064x` |
 | stable_vector push_back | `16.355` | `14.612` | `1.119x` |
 

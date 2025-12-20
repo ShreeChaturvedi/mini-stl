@@ -21,7 +21,7 @@
   "pairs": [
     {
       "case_id": "deque_push_pop",
-      "title": "Deque push_back+pop_front",
+      "title": "Deque push_back + pop_front",
       "n": 200000,
       "iters": 5,
       "mini_median_ns_per_op": 1.72021,
@@ -57,7 +57,7 @@
     },
     {
       "case_id": "map_build_find",
-      "title": "map build+find",
+      "title": "map build + find",
       "n": 200000,
       "iters": 5,
       "mini_median_ns_per_op": 239.379,
@@ -66,7 +66,7 @@
     },
     {
       "case_id": "set_build_find",
-      "title": "set build+find",
+      "title": "set build + find",
       "n": 200000,
       "iters": 5,
       "mini_median_ns_per_op": 216.455,
@@ -75,7 +75,7 @@
     },
     {
       "case_id": "flat_map_build_find",
-      "title": "flat_map build+find",
+      "title": "flat_map build + find",
       "n": 200000,
       "iters": 5,
       "mini_median_ns_per_op": 50.2217,
@@ -84,7 +84,7 @@
     },
     {
       "case_id": "flat_set_build_find",
-      "title": "flat_set build+find",
+      "title": "flat_set build + find",
       "n": 200000,
       "iters": 5,
       "mini_median_ns_per_op": 43.6017,
