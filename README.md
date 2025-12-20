@@ -3,6 +3,8 @@
   <img src="docs/branding/readme-dark.svg#gh-dark-mode-only" width="700" alt="My STL">
 </p>
 
+---
+
 [![ci](https://github.com/ShreeChaturvedi/my-stl/actions/workflows/ci.yml/badge.svg)](https://github.com/ShreeChaturvedi/my-stl/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![c++](https://img.shields.io/badge/C%2B%2B-23-blue.svg)](https://isocpp.org/)
