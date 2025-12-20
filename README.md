@@ -16,58 +16,7 @@ C++23 container library with STL-style APIs, RAII utilities, and published perfo
 - CI on Linux/macOS/Windows via GitHub Actions.
 - clang-format tooling with a repo config.
 
-## Containers
-
-Sequence:
-`ArrayList`, `Vector`, `Deque`, `ForwardList`, `LinkedList`, `List`, `RingBuffer`, `SmallVector`, `StableVector`,
-`Span`, `basic_string`.
-
-Associative:
-`map`/`multimap`, `set`/`multiset`, `FlatMap`, `FlatSet`.
-
-Unordered:
-`unordered_map`, `unordered_set`, `unordered_multimap`, `unordered_multiset`.
-
-Adaptors:
-`Stack`, `Queue`, `PriorityQueue`, `Heap`.
-
-Utilities:
-`LRUCache`, `Trie`, `unique_ptr` (plus internal `RbTree`).
-
-## Design Notes
-
-- Header-only: everything is `*.hpp` + `*.tpp`, included via CMake include paths.
-- Self-hosting where it fits:
-  - `Heap` uses `Vector`
-  - `unordered_map` uses `Vector` + `ForwardList`
-  - `LRUCache` uses `List` + `unordered_map`
-  - `Stack` uses `Vector`, `Queue` uses `List`, `PriorityQueue` uses `Heap`
-- APIs are STL-like with deliberate simplifications documented in `docs/containers/`.
-
-## Build and Test
-
-```bash
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
-cmake --build build -j
-ctest --test-dir build --output-on-failure
-```
-
-Tests are written with Catch2.
-
-## Formatting
-
-```bash
-./scripts/format.sh
-cmake --build build --target format
-```
-
-Windows:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/format.ps1
-```
-
-## Benchmarks (Latest Run)
+## Benchmarks
 
 Run file: `docs/benchmarks/runs/bench-20251219-154045-m2.json`
 
@@ -107,6 +56,49 @@ cmake --build build -j
 ```
 
 Detailed methodology and scripts: `docs/benchmarks.md` and `scripts/bench/`.
+
+## Containers
+
+| Category | Containers |
+| --- | --- |
+| Sequence | `ArrayList`, `Vector`, `Deque`, `ForwardList`, `LinkedList`, `List`, `RingBuffer`, `SmallVector`, `StableVector`, `Span`, `basic_string` |
+| Associative | `map`/`multimap`, `set`/`multiset`, `FlatMap`, `FlatSet` |
+| Unordered | `unordered_map`, `unordered_set`, `unordered_multimap`, `unordered_multiset` |
+| Adaptors | `Stack`, `Queue`, `PriorityQueue`, `Heap` |
+| Utilities | `LRUCache`, `Trie`, `unique_ptr` (plus internal `RbTree`) |
+
+## Design Notes
+
+- Header-only: everything is `*.hpp` + `*.tpp`, included via CMake include paths.
+- Self-hosting where it fits:
+  - `Heap` uses `Vector`
+  - `unordered_map` uses `Vector` + `ForwardList`
+  - `LRUCache` uses `List` + `unordered_map`
+  - `Stack` uses `Vector`, `Queue` uses `List`, `PriorityQueue` uses `Heap`
+- APIs are STL-like with deliberate simplifications documented in `docs/containers/`.
+
+## Build and Test
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build -j
+ctest --test-dir build --output-on-failure
+```
+
+Tests are written with Catch2.
+
+## Formatting
+
+```bash
+./scripts/format.sh
+cmake --build build --target format
+```
+
+Windows:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/format.ps1
+```
 
 ## Documentation
 
